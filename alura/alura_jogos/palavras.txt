@@ -1,0 +1,15 @@
+banana
+maçã
+pessoa
+mulher 
+homen
+criança
+menino
+menina
+trabalho
+casa
+apartamento
+predio
+condominio
+fechado
+aberto

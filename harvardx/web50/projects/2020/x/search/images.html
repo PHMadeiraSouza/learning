@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styless.css">
+    <title>Google Image</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <ul class="navbar">
+                <li class="navbar-item"><a href="advanced search.html">Advanced</a></li>
+                <button type="button" id="sign-in"
+                    href="https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com.br/imghp%3Fhl%3Den%26ogbl&ec=GAZAAg">signin</a>
+                </button>
+            </ul>
+        </div>
+    </header>
+    <div class="center-content">
+        <div >
+            <a href="index.html"><img id="google-logo" src="googlelogo_color_272x92dp.png" alt="google"></a>
+            <span id="imagestxt">Images</span>
+        </div>
+    </div>
+    <div>
+        <form action="https://www.google.com/search">
+            <div>
+                <input type="hidden" name="tbm" value="isch">
+                <input type="text" name="q" class="search-input">
+                <center>
+                    <div class="buttons">
+                        <input id="gsearch" value="Google Search" aria-label="Google Search" name="btnK" role="button"
+                            tabindex="0" type="submit" data-ved="0ahUKEwj02YSOn6b7AhVdBLkGHVf3CfIQ4dUDCBA">
+                    </div>
+                </center>
+        </form>
+    </div>
+
+</html>

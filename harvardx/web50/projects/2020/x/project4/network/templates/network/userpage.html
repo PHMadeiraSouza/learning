@@ -1,0 +1,161 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block scripts %}
+<script src="{% static 'network/userpage.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<div id="alert_div" style="display: flex; justify-content:center ;"></div>
+<div id="user_page" style="display:flex;">
+    <div style="align-items:center;margin-left:10px;margin-right:10px">
+        <h1 id="user_page_username">{{user_page.username|capfirst}}</h1>
+        <h10 class="text-muted" id="user_page_email">{{user_page.email|capfirst}}</h10>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+        <div id="posts_made_div" style="display:flex;margin-left:10px;margin-right:10px">
+            <h5 id="posts_made">Posts: </h5>
+            <h5 id="posts_made_number"> {{posts |length}}</h5>
+        </div>
+        <div id="followers_top_div" style="display:flex;margin-left:10px;margin-right:10px">
+            <h5 id="followers">Followers: </h5>
+            <h5 id="followers_number"> {{followers |length}} </h5>
+        </div>
+        <div id="following_top_div" style="display:flex;margin-left:10px;margin-right:10px">
+            <h5 id="following">Following: </h5>
+            <h5 id="following_number">{{following |length}}</h5>
+        </div>
+    </div>
+    <div id="follow_btn_div"
+        style="display:flex;justify-content:space-between;align-items:center;margin-left:10px;margin-right:10px">
+        {% if user.is_authenticated %}
+        {% if requestuserisuser %}
+
+        {% else %}
+        {% if isfollowing %}
+        <a class="btn btn-dark" style="color:white;" onclick="unfollow_user({{user_id}})" role="button">Unfollow</a>
+        {% else %}
+        <a class="btn btn-primary" style="color:white;" onclick="follow_user({{user_id}})" role="button">Follow</a>
+        {% endif %}
+        {% endif %}
+        {% else %}
+        <a class="btn btn-primary" style="color:white;" onclick="sign_in()" role="button">Follow</a>
+        {% endif %}
+
+    </div>
+</div>
+
+<div style="display:flex;justify-content:center;">
+
+    <div class="feeds" id="posts_feed">
+        {% if posts %}
+        {% for Post in posts %}
+        <div class="post">
+            <div class="card-body">
+                <div class="post-header">
+                    <a href="/user/{{Post.poster.id}}" class="user_link" id="user_link">{{Post.poster.username}}</a>
+                    |
+                    <h10 class="text-muted">{{Post.poster.email}}</h10>
+                    <small class="text-muted">{{Post.timestamp}}</small>
+                </div>
+                <div id="edited_div{{Post.id}}" style="display: flex; justify-content: end;">
+                    {% if Post.edited == True %}
+                    <h10><span class="badge bg-secondary" style="color:white; padding: 7px;margin:10px;">edited</span>
+                    </h10>
+                    {% endif %}
+                </div>
+                {% if user.id == Post.poster.id %}
+                <div id="edit_post_div{{Post.id}}" style="display:flex; justify-content: end; margin:10px;">
+                    <button type="button" class="btn btn-secondary" onclick="editpost({{Post.id}})">edit</button>
+                </div>
+                {% endif %}
+                <div id="post_content_div{{Post.id}}" style="">
+
+                    <p class="card-text" style="margin:10px;" id="post_content{{Post.id}}">{{Post.content}}</p>
+                </div>
+
+                <div id="submit_button_div_{{Post.id}}">
+
+                </div>
+                <div style="display:flex; align-items: center;margin:10px;">
+                    <div id="like_button_div_{{Post.id}}" style="display:flex; align-items: center;margin:10px;">
+
+                        {% if user in Post.likes.all %}
+                        <button type="button" class="btn btn-danger" onclick="unlikepost({{Post.id}})">unlike</button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary" onclick="likepost({{Post.id}})">like</button>
+                        {% endif %}
+                    </div>
+                    <h5 style="margin:10px" id="quantity_like_{{Post.id}}">{{Post.likes.all|length}}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h8 class="error_message">this user don't have a post</h8>
+        {% endif %}
+        <div style="display:flex;justify-content:center;">
+            {% if posts.has_other_pages %}
+            <div class="pagination">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        {% if posts.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ posts.previous_page_number }}" tabindex="-1"
+                                aria-disabled="true">Previous</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        {% endif %}
+
+                        {% for n in posts.paginator.page_range %}
+                        {% if posts.number == n %}
+                        <li class="active page-item"><span class="page-link">{{ n }} <span
+                                    class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if posts.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                        </li>
+                        {% else %}
+                        <li class="disabled page-item"><span class="page-link">Next</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="feeds" id="followers_profiles">
+        {% if followers %}
+        {% for n in followers %}
+        <div class="user_card">
+            <a href="/user/{{n.id}}" class="user_link" id="user_link">{{n.username | capfirst}}</a> |
+            <h10 class="text-muted">{{n.email}}</h10>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h8>this user don't have any followers</h8>
+        {% endif %}
+
+    </div>
+
+    <div class="feeds" id="following_profiles">
+        {% if following %}
+        {% for n in following %}
+        <div class="user_card">
+            <a href="/user/{{n.user_followed.id}}" class="user_link" id="user_link">{{n.user_followed.username}}</a> |
+            <h10 class="text-muted">{{n.user_followed.email}}</h10>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h8>this user don't follow anyone</h8>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

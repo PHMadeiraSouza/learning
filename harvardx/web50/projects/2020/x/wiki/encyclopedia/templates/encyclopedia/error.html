@@ -1,0 +1,27 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Page not found
+{% endblock %}
+
+{% block body %}
+<div>
+<center>
+    <h1>ERROR</h1>
+</center>
+</div>
+<div>
+<center>
+    <div>
+        <h1>{{ message }}</h1>
+    </div>
+</center>
+</div>
+<div>
+    <center>
+        <div>
+            <a href="{% url 'create_page' %}"class="btn btn-primary">Create New Page</a>
+        </div>
+    </center>
+    </div>
+{% endblock %}

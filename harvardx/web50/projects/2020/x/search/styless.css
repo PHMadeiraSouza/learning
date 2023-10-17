@@ -1,0 +1,116 @@
+a:visited {
+    color:black
+}
+.navbar{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.navbar-item{
+    margin: 10px
+}
+.navbar-item a:link{
+    color: black;
+    text-decoration: none;
+}
+.navbar-item a:hover {
+    color: gray;
+}
+#sign-in{
+    cursor: pointer;
+    color: white;
+    border: none;
+    background-color: #1a73e8;
+    font-family: Google Sans,Roboto,Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    padding: 7px 23px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 5px;
+    transition-duration: 0.1s;
+}
+#sign-in:hover{
+    background-color: #1766cf;
+    box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 10%);
+}
+
+.center-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#imagestxt{
+    color: #4285f4;
+    font: 16px/16px roboto-regular, arial, sans-serif;
+    left: 215px;
+    bottom: 0;
+    white-space: nowrap;
+
+
+}
+.search-input{
+    padding-left: 20px;
+    display: flex;
+    z-index: 3;
+    height: 44px;
+    background: transparent;
+    border: 1px solid #dfe1e5;
+    box-shadow: none;
+    border-radius: 24px;
+    margin: 0 auto;
+    margin-top: 10px;
+    width: calc(632px + 6px);
+    max-width: 584px;
+}
+.search-input:hover{
+ box-shadow: 3px 3px 8px 2px rgb(0 0 0 / 20%);
+}
+.buttons{
+    margin: 30px;
+}
+#gsearch{
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition-duration: 0.1s;
+}
+#gsearch:hover {
+    border-color: #e6e7e8;
+    box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
+}
+#lucky{
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition-duration: 0.1s;
+}
+#lucky:hover {
+    border-color: #e6e7e8;
+    box-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
+}
+

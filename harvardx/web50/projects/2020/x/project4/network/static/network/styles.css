@@ -1,0 +1,102 @@
+a {
+    color:black
+}
+
+div {}
+
+.body {
+    justify-content: center;
+    padding: 20px;
+}
+
+.posts {
+    display: flex;
+    justify-content: center;
+}
+
+#create_post {
+    width: 60%;
+}
+
+.post {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    padding: 15px;
+    justify-content: center;
+    border: 5px;
+    border-color: black;
+    border-radius: 10px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 7%);
+}
+
+#posts_feed {
+    justify-content: center;
+    width: 60%;
+}
+
+.card-text {
+
+    font-size: large;
+    color: black;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.user_link{
+    text-transform: capitalize;
+    width:75px;
+}
+
+.user_link:hover {
+    color: crimson;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.like-button {
+    border: 2px solid dark-gray;
+    background-color: transparent;
+    text-decoration: none;
+    padding: 1rem;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    border-radius: 3rem;
+    color: dark-gray;
+    transition: all ease 0.4s;
+}
+
+#user_page {
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+
+#followers:hover,
+#following:hover,
+#posts_made:hover {
+    cursor: pointer;
+}
+
+.btn {
+    color: white;
+
+}
+.feeds{
+    padding-top: 20px;
+}
+.user_card{
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 50px;
+    box-shadow: 0 4px 6px 0 rgb(0 0 0 / 7%);;
+    border-radius: 6px;
+}
+
+.error_message{
+    display:flex;
+    justify-content: center;
+}

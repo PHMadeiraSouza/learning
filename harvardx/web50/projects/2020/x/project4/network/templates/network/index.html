@@ -1,0 +1,124 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block scripts %}
+<script src="{% static 'network/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="posts" id="post_form_div">
+    <div class="post" id="create_post">
+        {%if user.is_authenticated%}
+        <div class="post-header">
+            <strong>{{user.username|capfirst}} |</strong>
+            <h10 class="text-muted">{{user.email}}</h10>
+        </div>
+        {%endif%}
+        </br>
+        <form id="post_form">
+            {%if user.is_authenticated%}
+            <div class="mb-3">
+                <label for="post_content" class="form-label">Content:</label>
+                <textarea class="form-control" id="post_content" rows="3" maxlength="500"></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-primary">
+            </div>
+            {% else %}
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Content:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    disabled>you need to be signed in</textarea>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<div style="display:flex;justify-content:center;">
+    <div id="posts_feed">
+        {% if posts %}
+        {% for Post in posts %}
+        <div class="post">
+            <div class="card-body">
+                <div class="post-header">
+                    <a href="/user/{{Post.poster.id}}" class="user_link" id="user_link">{{Post.poster.username}}</a>
+                    |
+                    <h10 class="text-muted">{{Post.poster.email}}</h10>
+                    <small class="text-muted">{{Post.timestamp}}</small>
+                </div>
+                <div id="edited_div{{Post.id}}" style="display: flex; justify-content: end;">
+                    {% if Post.edited == True %}
+                    <h10><span class="badge bg-secondary" style="color:white; padding: 7px;margin:10px;">edited</span>
+                    </h10>
+                    {% endif %}
+                </div>
+                {% if user.id == Post.poster.id %}
+                <div id="edit_post_div{{Post.id}}" style="display:flex; justify-content: end; margin:10px;">
+                    <button type="button" class="btn btn-secondary" onclick="editpost({{Post.id}})">edit</button>
+                </div>
+                {% endif %}
+                <div id="post_content_div{{Post.id}}" style="">
+
+                    <p class="card-text" style="margin:10px;" id="post_content{{Post.id}}">{{Post.content}}</p>
+                </div>
+
+                <div id="submit_button_div_{{Post.id}}">
+
+                </div>
+                <div style="display:flex; align-items: center;margin:10px;">
+                    <div id="like_button_div_{{Post.id}}" style="display:flex; align-items: center;margin:10px;">
+
+                        {% if user in Post.likes.all %}
+                        <button type="button" class="btn btn-danger" onclick="unlikepost({{Post.id}})">unlike</button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary" onclick="likepost({{Post.id}})">like</button>
+                        {% endif %}
+                    </div>
+                    <h5 style="margin:10px" id="quantity_like_{{Post.id}}">{{Post.likes.all|length}}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h8 class="error_message">{{message}}</h8>
+        {% endif %}
+        <div style="display:flex;justify-content:center;">
+            {% if posts.has_other_pages %}
+            <div class="pagination">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        {% if posts.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ posts.previous_page_number }}" tabindex="-1"
+                                aria-disabled="true">Previous</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        {% endif %}
+
+                        {% for n in posts.paginator.page_range %}
+                        {% if posts.number == n %}
+                        <li class="active page-item"><span class="page-link">{{ n }} <span
+                                    class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if posts.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                        </li>
+                        {% else %}
+                        <li class="disabled page-item"><span class="page-link">Next</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
